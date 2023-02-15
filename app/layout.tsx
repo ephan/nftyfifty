@@ -1,18 +1,27 @@
-import './globals.css'
+/* eslint-disable @next/next/no-head-element */
+"use client";
+import Link from "next/link";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { useState } from "react";
+import Gallery from "@/components/Gallery";
+import "./globals.css"
+
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
+  const [showSearch, setShowSearch] = useState(false);
   return (
-    <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
-      <body>{children}</body>
+    <html>
+      <head></head>
+      <body>
+        <QueryClientProvider client={queryClient}>
+          <Gallery />
+        </QueryClientProvider>
+      </body>
     </html>
-  )
+  );
 }
